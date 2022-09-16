@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2022 Alec Delaney, written for Adafruit Industries
+#
+# SPDX-License-Identifier: MIT
+
+name: Build CI
+
+on: [pull_request, push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
+    - name: Test pip
+      run: pip --version
