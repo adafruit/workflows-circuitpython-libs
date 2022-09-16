@@ -10,4 +10,4 @@
 circuitpython-unified-build-ci
 ==============================
 
-A unified build CI for CircuitPython
+A unified build CI for CircuitPython libraries
