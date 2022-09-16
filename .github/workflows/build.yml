@@ -14,6 +14,10 @@ jobs:
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
       run: echo "$GITHUB_CONTEXT"
+    - name: Set up Python 3.x (Latest)
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.x"
     - name: Checkout current repo
       uses: actions/checkout@v3
       with:
