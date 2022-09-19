@@ -1,4 +1,3 @@
-
 .. image:: https://raw.githubusercontent.com/adafruit/Adafruit_CircuitPython_Bundle/main/badges/adafruit_discord.svg
     :target: https://adafru.it/discord
     :alt: Discord
@@ -7,7 +6,7 @@
     :target: https://github.com/adafruit/Adafruit_CircuitPython_VEML7700/actions/
     :alt: Build Status
 
-circuitpython-unified-build-ci
-==============================
+circuitpython-library-workflow-actions
+======================================
 
-A unified build CI for CircuitPython libraries
+A collection of CIs for CircuitPython library workflows
