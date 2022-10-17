@@ -5,7 +5,7 @@
 name: 'GitHub Release CI'
 description: 'Build CI used for pull requests, for GitHub'
 inputs:
-  github-token: 
+  github-token:
     description: 'A GitHub token (required to upload to the release)'
     required: true
 runs:
