@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 name: 'Build CI'
-description: 'Build CI used for pushes'
+description: 'Build CI used for pushes and pull requests'
 runs:
   using: "composite"
   steps:

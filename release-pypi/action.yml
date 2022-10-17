@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 name: 'GitHub Release CI'
-description: 'Build CI used for pull requests, for PyPI'
+description: 'Build CI used for PyPI releases'
 inputs:
   pypi-username:
     description: 'The PyPI username for twine'
