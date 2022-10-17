@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 name: 'GitHub Release CI'
-description: 'Build CI used for GitHub releases'
+description: 'Release CI used for GitHub releases'
 inputs:
   github-token:
     description: 'A GitHub token (required to upload to the release)'
