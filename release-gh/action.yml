@@ -58,4 +58,4 @@ runs:
     uses: csexton/release-asset-action@master
     with:
       pattern: "bundles/*"
-      github-token: ${{ inputs. }}
+      github-token: ${{ inputs.github-token }}
