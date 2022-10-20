@@ -10,6 +10,7 @@ runs:
   - name: Dump GitHub context
     env:
       GITHUB_CONTEXT: ${{ toJson(github) }}
+    shell: bash
     run: echo "$GITHUB_CONTEXT"
   - name: Translate Repo Name For Build Tools filename_prefix
     id: repo-name
@@ -71,6 +72,7 @@ runs:
   - name: Build docs
     if: contains(steps.need-docs.outputs.docs, 'docs')
     working-directory: docs
+    shell: bash
     run: sphinx-build -E -W -b html . _build/html
   - name: Check For pyproject.toml
     id: need-pypi
