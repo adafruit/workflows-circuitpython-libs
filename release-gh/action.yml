@@ -20,11 +20,11 @@ runs:
     id: repo-name
     shell: bash
     run: |
-      echo ::set-output name=repo-name::$(
+      echo repo-name=$(
       echo ${{ github.repository }} |
       awk -F '\/' '{ print tolower($2) }' |
       tr '_' '-'
-      )
+      ) >> $GITHUB_OUTPUT
   - name: Set up Python 3.x
     uses: actions/setup-python@v2
     with:
