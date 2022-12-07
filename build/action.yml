@@ -16,11 +16,11 @@ runs:
     id: repo-name
     shell: bash
     run: |
-      echo ::set-output name=repo-name::$(
+      echo repo-name=$(
       echo ${{ github.repository }} |
       awk -F '\/' '{ print tolower($2) }' |
       tr '_' '-'
-      )
+      ) >> $GITHUB_OUTPUT
   - name: Set up Python 3.x
     uses: actions/setup-python@v2
     with:
@@ -68,7 +68,7 @@ runs:
     id: need-docs
     shell: bash
     run: |
-      echo ::set-output name=docs::$( find . -wholename './docs' )
+      echo docs=$( find . -wholename './docs' ) >> $GITHUB_OUTPUT
   - name: Build docs
     if: contains(steps.need-docs.outputs.docs, 'docs')
     working-directory: docs
@@ -78,7 +78,7 @@ runs:
     id: need-pypi
     shell: bash
     run: |
-      echo ::set-output name=pyproject-toml::$( find . -wholename './pyproject.toml' )
+      echo pyproject-toml=$( find . -wholename './pyproject.toml' ) >> $GITHUB_OUTPUT
   - name: Build Python package
     if: contains(steps.need-pypi.outputs.pyproject-toml, 'pyproject.toml')
     shell: bash
