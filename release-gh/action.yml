@@ -11,11 +11,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-  - name: Dump GitHub context
-    env:
-      GITHUB_CONTEXT: ${{ toJson(github) }}
-    shell: bash
-    run: echo "$GITHUB_CONTEXT"
   - name: Translate Repo Name For Build Tools filename_prefix
     id: repo-name
     shell: bash
