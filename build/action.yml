@@ -17,7 +17,7 @@ runs:
       tr '_' '-'
       ) >> $GITHUB_OUTPUT
   - name: Set up Python 3.x
-    uses: actions/setup-python@v2
+    uses: actions/setup-python@v4
     with:
       python-version: "3.x"
   - name: Versions
@@ -55,7 +55,7 @@ runs:
     shell: bash
     run: circuitpython-build-bundles --filename_prefix ${{ steps.repo-name.outputs.repo-name }} --library_location .
   - name: Archive bundles
-    uses: actions/upload-artifact@v2
+    uses: actions/upload-artifact@v3
     with:
       name: bundles
       path: ${{ github.workspace }}/bundles/
