@@ -45,6 +45,8 @@ to attach bundles to the releases.  It takes the following arguments:
 
 * ``github-token``: A valid GitHub token with authorization scope to upload the file
   to the release
+* ``upload-url`` The upload URL where the release assets can be uploaded; should be
+  that of the release
 
 It can be invoked using:
 
@@ -54,6 +56,7 @@ It can be invoked using:
       uses: adafruit/workflows-circuitpython-libs/release-gh@main
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        upload-url: ${{ github.event.release.upload_url }}
 
 PyPI Release CI
 ---------------
