@@ -11,6 +11,10 @@ inputs:
   upload-url:
     description: 'The release upload URL for the asset'
     required: true
+  python-version:
+    description: 'The version of Python to use in the CI'
+    required: true
+    default: '3.x'
 runs:
   using: "composite"
   steps:
@@ -26,7 +30,7 @@ runs:
   - name: Set up Python 3.x
     uses: actions/setup-python@v4
     with:
-      python-version: "3.x"
+      python-version: ${{ inputs.python-version }}
   - name: Versions
     shell: bash
     run: |

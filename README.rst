@@ -78,3 +78,21 @@ It can be invoked using:
       with:
         pypi-username: ${{ secrets.pypi_username }}
         pypi-password: ${{ secrets.pypi_password }}
+
+Notes
+-----
+
+Libraries that will be available for use in CPython using Blinka may not be able to
+support the latest versions of CPython based on the availability of dependencies for
+that version.  In these instances, all of the actions here support a input parameter
+of ``python-version`` to set the version of Python used by the CI (the default is to
+use the latest version):
+
+.. code-block:: yaml
+
+    - name: Run PyPI Release CI workflow
+      uses: adafruit/workflows-circuitpython-libs/release-pypi@main
+      with:
+        pypi-username: ${{ secrets.pypi_username }}
+        pypi-password: ${{ secrets.pypi_password }}
+        python-version: 3.9
