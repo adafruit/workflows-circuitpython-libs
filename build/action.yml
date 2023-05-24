@@ -66,7 +66,11 @@ runs:
       pip install -r optional_requirements.txt
   - name: Run pytest
     shell: bash
-    run: if [[ -d tests ]]; then pytest; fi
+    run: |
+      if [[ -d tests ]]; then
+        pip install .
+        pytest
+      fi
   - name: Build assets
     shell: bash
     run: circuitpython-build-bundles --filename_prefix ${{ steps.repo-name.outputs.repo-name }} --library_location .
