@@ -9,7 +9,7 @@
 workflows-circuitpython-libs
 ============================
 
-A collection of CI workflowss for CircuitPython libraries
+A collection of CI workflows for CircuitPython libraries
 
 Instructions
 ------------
