@@ -59,16 +59,11 @@ runs:
   - name: Install pytest
     shell: bash
     run: pip install pytest
-  - name: Install dependencies
-    shell: bash
-    run: |
-      pip install -r requirements.txt
-      pip install -r optional_requirements.txt
   - name: Run pytest
     shell: bash
     run: |
       if [[ -d tests ]]; then
-        pip install .
+        pip install ".[optional]"
         pytest
       fi
   - name: Build assets
