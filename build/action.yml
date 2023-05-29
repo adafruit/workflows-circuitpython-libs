@@ -89,6 +89,10 @@ runs:
     shell: bash
     run: |
       echo pyproject-toml=$( find . -wholename './pyproject.toml' ) >> $GITHUB_OUTPUT
+  - name: Check packaging information
+    if: contains(steps.need-pypi.outputs.pyproject-toml, 'pyproject.toml')
+    shell: bash
+    run: python actions-ci/check_lib_packaging.py
   - name: Build Python package
     if: contains(steps.need-pypi.outputs.pyproject-toml, 'pyproject.toml')
     shell: bash
