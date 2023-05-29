@@ -67,7 +67,6 @@ runs:
     run: |
       if [[ -d tests ]]; then
         pip install pytest
-        pip install ".[optional]"
         pytest
       fi
   - name: Add the given package filename_prefix
