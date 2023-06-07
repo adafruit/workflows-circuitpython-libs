@@ -56,13 +56,11 @@ runs:
     shell: bash
     run: |
       pre-commit run --all-files
-  - name: Install pytest
-    shell: bash
-    run: pip install pytest
   - name: Run pytest
     shell: bash
     run: |
       if [[ -d tests ]]; then
+        pip install pytest
         pip install ".[optional]"
         pytest
       fi
