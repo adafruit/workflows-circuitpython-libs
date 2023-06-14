@@ -9,6 +9,12 @@ inputs:
     description: 'The version of Python to use in the CI'
     required: true
     default: '3.x'
+  package-prefix:
+    description: |
+      The prefix (or name) of your pacakge (if applicable) to use
+      for GitHub releases
+    required: true
+    default: ""
 runs:
   using: "composite"
   steps:
