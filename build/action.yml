@@ -9,6 +9,12 @@ inputs:
     description: 'The version of Python to use in the CI'
     required: true
     default: '3.x'
+  package-prefix:
+    description: |
+      The prefix (or name) of your pacakge (if applicable) to use
+      for GitHub releases
+    required: true
+    default: ""
 runs:
   using: "composite"
   steps:
@@ -71,9 +77,18 @@ runs:
         pip install .
         pytest
       fi
+  - name: Add the given package filename_prefix
+    id: package-prefix-arg
+    shell: bash
+    run: |
+      if [ "${{ inputs.package-prefix }}" == "" ]; then
+        echo prefix-arg="" >> $GITHUB_OUTPUT
+      else
+        echo prefix-arg="--package_folder_prefix ${{ inputs.package-prefix }}" >> $GITHUB_OUTPUT
+      fi
   - name: Build assets
     shell: bash
-    run: circuitpython-build-bundles --filename_prefix ${{ steps.repo-name.outputs.repo-name }} --library_location .
+    run: circuitpython-build-bundles --filename_prefix ${{ steps.repo-name.outputs.repo-name }} --library_location . ${{ steps.package-prefix-arg.outputs.prefix-arg }}
   - name: Archive bundles
     uses: actions/upload-artifact@v3
     with:
