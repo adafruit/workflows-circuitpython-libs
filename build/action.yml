@@ -62,14 +62,11 @@ runs:
     shell: bash
     run: |
       pre-commit run --all-files
-  - name: Install pytest
-    shell: bash
-    run: pip install pytest
   - name: Run pytest
     shell: bash
     run: |
       if [[ -d tests ]]; then
-        pip install .
+        pip install pytest
         pytest
       fi
   - name: Add the given package filename_prefix
@@ -104,6 +101,10 @@ runs:
     shell: bash
     run: |
       echo pyproject-toml=$( find . -wholename './pyproject.toml' ) >> $GITHUB_OUTPUT
+  - name: Check packaging information
+    if: contains(steps.need-pypi.outputs.pyproject-toml, 'pyproject.toml')
+    shell: bash
+    run: python actions-ci/check_lib_packaging.py
   - name: Build Python package
     if: contains(steps.need-pypi.outputs.pyproject-toml, 'pyproject.toml')
     shell: bash
