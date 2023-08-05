@@ -67,7 +67,7 @@ runs:
     run: |
       if [[ -d tests ]]; then
         pip install pytest
-        pytest
+        pyrhon -m pytest
       fi
   - name: Add the given package filename_prefix
     id: package-prefix-arg
