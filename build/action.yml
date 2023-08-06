@@ -67,7 +67,7 @@ runs:
     run: |
       if [[ -d tests ]]; then
         pip install pytest
-        python -m pytest
+        python -m pytest  # This syntax adds the library to the path
       fi
   - name: Add the given package filename_prefix
     id: package-prefix-arg
