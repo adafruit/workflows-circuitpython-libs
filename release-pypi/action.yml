@@ -14,7 +14,7 @@ inputs:
   python-version:
     description: 'The version of Python to use in the CI'
     required: true
-    default: '3.x'
+    default: '3.11'
 runs:
   using: "composite"
   steps:
