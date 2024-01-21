@@ -61,7 +61,7 @@ runs:
   - name: Pre-commit hooks
     shell: bash
     run: |
-      pre-commit run --all-files
+      pre-commit run --all-files --show-diff-on-failure
   - name: Install pytest
     shell: bash
     run: pip install pytest
