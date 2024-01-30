@@ -11,7 +11,7 @@ inputs:
     default: '3.11'
   package-prefix:
     description: |
-      The prefix (or name) of your pacakge (if applicable) to use
+      The prefix (or name) of your package (if applicable) to use
       for GitHub releases
     required: true
     default: ""
@@ -65,7 +65,7 @@ runs:
   - name: Pre-commit hooks
     shell: bash
     run: |
-      pre-commit run --all-files
+      pre-commit run --all-files --show-diff-on-failure
   - name: Run pytest
     shell: bash
     run: |
