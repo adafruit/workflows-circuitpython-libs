@@ -8,7 +8,7 @@ inputs:
   python-version:
     description: 'The version of Python to use in the CI'
     required: true
-    default: '3.x'
+    default: '3.11'
   package-prefix:
     description: |
       The prefix (or name) of your pacakge (if applicable) to use
@@ -27,7 +27,7 @@ runs:
       awk -F '\/' '{ print tolower($2) }' |
       tr '_' '-'
       ) >> $GITHUB_OUTPUT
-  - name: Set up Python 3.x
+  - name: Set up Python 3.11
     uses: actions/setup-python@v4
     with:
       python-version: ${{ inputs.python-version }}
@@ -58,24 +58,29 @@ runs:
     run: git describe --dirty --always --tags
   - name: Setup problem matchers
     uses: adafruit/circuitpython-action-library-ci-problem-matchers@v1
+  - name: Print pre-commit hook versions
+    shell: bash
+    run: |
+      python actions-ci/print_precommit_versions.py
   - name: Pre-commit hooks
     shell: bash
     run: |
       pre-commit run --all-files --show-diff-on-failure
-  - name: Install pytest
-    shell: bash
-    run: pip install pytest
-  - name: Install dependencies
-    shell: bash
-    run: |
-      pip install -r requirements.txt
-      pip install -r optional_requirements.txt
   - name: Run pytest
     shell: bash
     run: |
       if [[ -d tests ]]; then
-        pip install .
-        pytest
+        pip install pytest
+        python -m pytest  # This syntax adds the library to the path
+      fi
+  - name: Add the given package filename_prefix
+    id: package-prefix-arg
+    shell: bash
+    run: |
+      if [ "${{ inputs.package-prefix }}" == "" ]; then
+        echo prefix-arg="" >> $GITHUB_OUTPUT
+      else
+        echo prefix-arg="--package_folder_prefix ${{ inputs.package-prefix }}" >> $GITHUB_OUTPUT
       fi
   - name: Add the given package filename_prefix
     id: package-prefix-arg
@@ -109,6 +114,10 @@ runs:
     shell: bash
     run: |
       echo pyproject-toml=$( find . -wholename './pyproject.toml' ) >> $GITHUB_OUTPUT
+  - name: Check packaging information
+    if: contains(steps.need-pypi.outputs.pyproject-toml, 'pyproject.toml')
+    shell: bash
+    run: python actions-ci/check_lib_packaging.py
   - name: Build Python package
     if: contains(steps.need-pypi.outputs.pyproject-toml, 'pyproject.toml')
     shell: bash

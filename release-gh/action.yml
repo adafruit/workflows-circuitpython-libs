@@ -14,11 +14,18 @@ inputs:
   python-version:
     description: 'The version of Python to use in the CI'
     required: true
-    default: '3.x'
+    default: '3.11'
   package-prefix:
     description: |
       The prefix (or name) of your pacakge (if applicable) to use
       for GitHub releases
+    required: true
+    default: ""
+  ignore-bundles:
+    description: |
+      A comma and space separated list of bundles to be skipped when building.
+      Valid options are py, mpy, example, and json.  For example, to skip
+      building the MPY and example bundles, this field would be: mpy, example
     required: true
     default: ""
 runs:
@@ -33,7 +40,7 @@ runs:
       awk -F '\/' '{ print tolower($2) }' |
       tr '_' '-'
       ) >> $GITHUB_OUTPUT
-  - name: Set up Python 3.x
+  - name: Set up requested Python version
     uses: actions/setup-python@v4
     with:
       python-version: ${{ inputs.python-version }}
@@ -63,9 +70,23 @@ runs:
       else
         echo prefix-arg="--package_folder_prefix ${{ inputs.package-prefix }}" >> $GITHUB_OUTPUT
       fi
+  - name: Add the given bundle ignores
+    id: ignore-bundles-arg
+    shell: bash
+    run: |
+      if [ "${{ inputs.ignore-bundles }}" == "" ]; then
+        echo ignore-bundles="" >> $GITHUB_OUTPUT
+      else
+        echo ignore-bundles='--ignore "${{ inputs.ignore-bundles }}"' >> $GITHUB_OUTPUT
+      fi
   - name: Build assets
     shell: bash
-    run: circuitpython-build-bundles --filename_prefix ${{ steps.repo-name.outputs.repo-name }} --library_location . ${{ steps.package-prefix-arg.outputs.prefix-arg }}
+    run: |
+      circuitpython-build-bundles \
+      --filename_prefix ${{ steps.repo-name.outputs.repo-name }} \
+      --library_location . \
+      ${{ steps.package-prefix-arg.outputs.prefix-arg }} \
+      ${{ steps.ignore-bundles-arg.outputs.prefix-arg }}
   - name: Upload Release Assets
     uses: shogo82148/actions-upload-release-asset@v1
     with:
