@@ -18,7 +18,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-  - uses: actions/checkout@v3
+  - uses: actions/checkout@v4
   - name: Check For pyproject.toml
     id: need-pypi
     shell: bash
@@ -26,7 +26,7 @@ runs:
       echo pyproject-toml=$( find . -wholename './pyproject.toml' ) >> $GITHUB_OUTPUT
   - name: Set up Python
     if: contains(steps.need-pypi.outputs.pyproject-toml, 'pyproject.toml')
-    uses: actions/setup-python@v4
+    uses: actions/setup-python@v5
     with:
       python-version: ${{ inputs.python-version }}
   - name: Install dependencies
