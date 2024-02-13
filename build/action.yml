@@ -46,9 +46,11 @@ runs:
     uses: actions/checkout@v4
     with:
       submodules: true
+      show-progress: false
   - name: Checkout tools repo
     uses: actions/checkout@v4
     with:
+      show-progress: false
       repository: adafruit/actions-ci-circuitpython-libs
       path: actions-ci
   - name: Install dependencies
