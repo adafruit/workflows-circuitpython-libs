@@ -107,7 +107,7 @@ runs:
       --filename_prefix ${{ steps.repo-name.outputs.repo-name }} \
       --library_location . \
       ${{ steps.package-prefix-arg.outputs.prefix-arg }} \
-      ${{ steps.ignore-bundles-arg.outputs.prefix-arg }}
+      ${{ steps.ignore-bundles-arg.outputs.ignore-bundles }}
   - name: Archive bundles
     uses: actions/upload-artifact@v3
     with:
