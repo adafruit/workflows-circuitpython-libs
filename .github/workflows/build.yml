@@ -10,18 +10,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
     - name: Set up Python 3.x (Latest)
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: "3.x"
     - name: Checkout current repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         submodules: true
+        show-progress: false
     - name: Install pre-commit
       run: pip install pre-commit
     - name: Run pre-commit

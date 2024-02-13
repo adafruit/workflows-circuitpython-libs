@@ -15,6 +15,13 @@ inputs:
       for GitHub releases
     required: true
     default: ""
+  ignore-bundles:
+    description: |
+      A comma and space separated list of bundles to be skipped when building.
+      Valid options are py, mpy, example, and json.  For example, to skip
+      building the MPY and example bundles, this field would be: mpy, example
+    required: true
+    default: ""
 runs:
   using: "composite"
   steps:
@@ -28,7 +35,7 @@ runs:
       tr '_' '-'
       ) >> $GITHUB_OUTPUT
   - name: Set up Python 3.11
-    uses: actions/setup-python@v4
+    uses: actions/setup-python@v5
     with:
       python-version: ${{ inputs.python-version }}
   - name: Versions
@@ -36,12 +43,14 @@ runs:
     run: |
       python3 --version
   - name: Checkout Current Repo
-    uses: actions/checkout@v3
+    uses: actions/checkout@v4
     with:
       submodules: true
+      show-progress: false
   - name: Checkout tools repo
-    uses: actions/checkout@v3
+    uses: actions/checkout@v4
     with:
+      show-progress: false
       repository: adafruit/actions-ci-circuitpython-libs
       path: actions-ci
   - name: Install dependencies
@@ -82,9 +91,23 @@ runs:
       else
         echo prefix-arg="--package_folder_prefix ${{ inputs.package-prefix }}" >> $GITHUB_OUTPUT
       fi
+  - name: Add the given bundle ignores
+    id: ignore-bundles-arg
+    shell: bash
+    run: |
+      if [ "${{ inputs.ignore-bundles }}" == "" ]; then
+        echo ignore-bundles="" >> $GITHUB_OUTPUT
+      else
+        echo ignore-bundles='--ignore "${{ inputs.ignore-bundles }}"' >> $GITHUB_OUTPUT
+      fi
   - name: Build assets
     shell: bash
-    run: circuitpython-build-bundles --filename_prefix ${{ steps.repo-name.outputs.repo-name }} --library_location . ${{ steps.package-prefix-arg.outputs.prefix-arg }}
+    run: |
+      circuitpython-build-bundles \
+      --filename_prefix ${{ steps.repo-name.outputs.repo-name }} \
+      --library_location . \
+      ${{ steps.package-prefix-arg.outputs.prefix-arg }} \
+      ${{ steps.ignore-bundles-arg.outputs.prefix-arg }}
   - name: Archive bundles
     uses: actions/upload-artifact@v3
     with:
