@@ -109,7 +109,7 @@ runs:
       ${{ steps.package-prefix-arg.outputs.prefix-arg }} \
       ${{ steps.ignore-bundles-arg.outputs.ignore-bundles }}
   - name: Archive bundles
-    uses: actions/upload-artifact@v3
+    uses: actions/upload-artifact@v4
     with:
       name: bundles
       path: ${{ github.workspace }}/bundles/
