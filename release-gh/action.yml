@@ -41,7 +41,7 @@ runs:
       tr '_' '-'
       ) >> $GITHUB_OUTPUT
   - name: Set up requested Python version
-    uses: actions/setup-python@v5
+    uses: actions/setup-python@v7
     with:
       python-version: ${{ inputs.python-version }}
   - name: Versions
@@ -49,12 +49,12 @@ runs:
     run: |
       python3 --version
   - name: Checkout Current Repo
-    uses: actions/checkout@v4
+    uses: actions/checkout@v7
     with:
       submodules: true
       show-progress: false
   - name: Checkout tools repo
-    uses: actions/checkout@v4
+    uses: actions/checkout@v7
     with:
       show-progress: false
       repository: adafruit/actions-ci-circuitpython-libs

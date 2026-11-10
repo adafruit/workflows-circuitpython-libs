@@ -35,7 +35,7 @@ runs:
       tr '_' '-'
       ) >> $GITHUB_OUTPUT
   - name: Set up Python 3.12
-    uses: actions/setup-python@v5
+    uses: actions/setup-python@v7
     with:
       python-version: ${{ inputs.python-version }}
   - name: Versions
@@ -43,12 +43,12 @@ runs:
     run: |
       python3 --version
   - name: Checkout Current Repo
-    uses: actions/checkout@v4
+    uses: actions/checkout@v7
     with:
       submodules: true
       show-progress: false
   - name: Checkout tools repo
-    uses: actions/checkout@v4
+    uses: actions/checkout@v7
     with:
       show-progress: false
       repository: adafruit/actions-ci-circuitpython-libs
@@ -109,7 +109,7 @@ runs:
       ${{ steps.package-prefix-arg.outputs.prefix-arg }} \
       ${{ steps.ignore-bundles-arg.outputs.ignore-bundles }}
   - name: Archive bundles
-    uses: actions/upload-artifact@v4
+    uses: actions/upload-artifact@v7
     with:
       name: bundles
       path: ${{ github.workspace }}/bundles/
